@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Espace Utilisateur</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="page-container">
+    <div class="top-bar">
+        <a th:href="@{/home}">⟵ Retour à l’accueil</a>
+        <form th:action="@{/logout}" method="post">
+            <input type="hidden"
+                   th:name="${_csrf.parameterName}"
+                   th:value="${_csrf.token}"/>
+            <button type="submit" class="btn secondary">Se déconnecter</button>
+        </form>
+    </div>
+
+    <div class="page-header">
+        <h2>Espace Utilisateur</h2>
+        <p>Accessible aux rôles USER et ADMIN.</p>
+    </div>
+
+    <div class="card user">
+        <p>Zone réservée aux fonctionnalités utilisateur.</p>
+    </div>
+</div>
+
+</body>
+</html>

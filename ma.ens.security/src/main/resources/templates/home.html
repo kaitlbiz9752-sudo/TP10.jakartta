@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Accueil</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="page-container">
+
+    <div class="top-bar">
+        <div>
+            Connecté en tant que
+            <strong sec:authentication="name">user</strong>
+        </div>
+        <form th:action="@{/logout}" method="post">
+            <input type="hidden"
+                   th:name="${_csrf.parameterName}"
+                   th:value="${_csrf.token}"/>
+            <button type="submit" class="btn secondary">Se déconnecter</button>
+        </form>
+    </div>
+
+    <div class="page-header">
+        <h2>Bienvenue dans l’application sécurisée</h2>
+        <p>Connexion réussie ! Choisissez votre espace.</p>
+    </div>
+
+    <div class="card user" sec:authorize="hasRole('USER')">
+        <h3>Espace Utilisateur</h3>
+        <p>Vous êtes connecté en tant qu’utilisateur.</p>
+        <div class="card-actions">
+            <a th:href="@{/user/dashboard}" class="btn">Aller à l’espace utilisateur</a>
+        </div>
+    </div>
+
+    <div class="card admin" sec:authorize="hasRole('ADMIN')">
+        <h3>Espace Administrateur</h3>
+        <p>Vous êtes connecté en tant qu’administrateur.</p>
+        <div class="card-actions">
+            <a th:href="@{/admin/dashboard}" class="btn">Aller à l’espace administrateur</a>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
