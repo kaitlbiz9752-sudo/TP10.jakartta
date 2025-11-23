@@ -1,174 +1,192 @@
 ## TP : Système d’authentification sécurisé avec Spring Boot, Spring Security, JPA et MySQL
-🎯 Objectif du TP
 
-Ce TP a pour but de mettre en place un système complet d’authentification sécurisé basé sur :
 
-Spring Boot
 
-Spring Security
+## Démonstration Vidéo :
 
-Spring Data JPA
 
-MySQL
 
-BCrypt pour le hachage des mots de passe
+https://github.com/user-attachments/assets/d3717a7e-929c-47e1-a135-a94dffabb326
 
-L’objectif principal est de remplacer l’authentification en mémoire par une authentification persistante dans une base de données.
-Au terme du TP, l’étudiant sera capable de :
 
-Créer des entités User et Role.
 
-Configurer une base MySQL pour stocker les utilisateurs.
 
-Utiliser un UserDetailsService personnalisé.
 
-Gérer les rôles et les autorisations.
+**Objectif du TP**
 
-Mettre en place un formulaire de login personnalisé.
+**Ce TP a pour but de mettre en place un système complet d’authentification sécurisé basé sur :**
 
-Protéger des pages selon les rôles (USER / ADMIN).
+- Spring Boot
 
-Styliser les pages HTML avec un fichier CSS externe.
+- Spring Security
 
-🗂️ Architecture générale du projet
+- Spring Data JPA
 
-L’application suit une architecture MVC simplifiée :
+- MySQL
 
-entities : classes de mapping JPA (User, Role)
+- BCrypt pour le hachage des mots de passe
 
-repositories : accès aux données
+- L’objectif principal est de remplacer l’authentification en mémoire par une authentification persistante dans une base de données.
 
-services : logique métier, chargement des utilisateurs
 
-config : configuration de Spring Security et initialisation BD
+**Au terme du TP, l’étudiant sera capable de :**
 
-web : contrôleurs MVC
+- Créer des entités User et Role.
 
-templates : pages HTML (Thymeleaf)
+- Configurer une base MySQL pour stocker les utilisateurs.
 
-static/css : fichier de style global
+- Utiliser un UserDetailsService personnalisé.
 
-🛢️ Partie Base de données MySQL
+- Gérer les rôles et les autorisations.
 
-Le TP commence par la création d’une base MySQL dédiée à la sécurité.
+- Mettre en place un formulaire de login personnalisé.
 
-L’application utilise JPA/Hibernate pour créer automatiquement les tables :
+- Protéger des pages selon les rôles (USER / ADMIN).
 
-Table des utilisateurs
+- Styliser les pages HTML avec un fichier CSS externe.
 
-Table des rôles
+## Architecture générale du projet
 
-Table de relation user/roles
+**L’application suit une architecture MVC simplifiée :**
 
-Le hachage des mots de passe est assuré par l’algorithme BCrypt.
+- entities : classes de mapping JPA (User, Role)
 
-Une initialisation automatique insère deux utilisateurs :
+- repositories : accès aux données
 
-admin (rôles ADMIN + USER)
+- services : logique métier, chargement des utilisateurs
 
-user (rôle USER)
+- config : configuration de Spring Security et initialisation BD
 
-🔐 Partie Authentification et Sécurité
+- web : contrôleurs MVC
 
-La configuration Spring Security permet de :
+- templates : pages HTML (Thymeleaf)
 
-Restreindre les pages selon le rôle :
+- static/css : fichier de style global
 
-/admin/** → réservé ADMIN
+## Partie Base de données MySQL
 
-/user/** → accessible USER et ADMIN
+- Le TP commence par la création d’une base MySQL dédiée à la sécurité.
 
-Autoriser librement :
+**L’application utilise JPA/Hibernate pour créer automatiquement les tables :**
 
-/login
+- Table des utilisateurs
 
-/css/**
+- Table des rôles
 
-Rediriger l’utilisateur après connexion vers /home
+- Table de relation user/roles
 
-Afficher un message en cas d’erreur de connexion
+- Le hachage des mots de passe est assuré par l’algorithme BCrypt.
 
-Gérer la déconnexion proprement
+- Une initialisation automatique insère deux utilisateurs :
 
-L’application utilise :
+- admin (rôles ADMIN + USER)
 
-Un DaoAuthenticationProvider
+- user (rôle USER)
 
-Un UserDetailsService personnalisé
+## Partie Authentification et Sécurité
 
-Un BCryptPasswordEncoder
+- La configuration Spring Security permet de :
 
-🖥️ Interface utilisateur
+- Restreindre les pages selon le rôle :
 
-Les pages Thymeleaf suivantes sont créées :
+- /admin/** → réservé ADMIN
 
-Page de connexion (login)
+- /user/** → accessible USER et ADMIN
 
-Page d’accueil (home)
+**Autoriser librement :**
 
-Espace utilisateur
+- /login
 
-Espace administrateur
+- /css/**
 
-Les pages affichent dynamiquement le rôle de l’utilisateur connecté.
+- Rediriger l’utilisateur après connexion vers /home
 
-Un fichier CSS global gère le style visuel (couleurs, présentation…).
+- Afficher un message en cas d’erreur de connexion
 
-🧪 Fonctionnement attendu
+- Gérer la déconnexion proprement
 
-Après démarrage :
+**L’application utilise :**
 
-✔️ Page de login accessible sur :
+- Un DaoAuthenticationProvider
+
+- Un UserDetailsService personnalisé
+
+- Un BCryptPasswordEncoder
+
+## Interface utilisateur
+
+**Les pages Thymeleaf suivantes sont créées :**
+
+- Page de connexion (login)
+
+- Page d’accueil (home)
+
+- Espace utilisateur
+
+- Espace administrateur
+
+- Les pages affichent dynamiquement le rôle de l’utilisateur connecté.
+
+- Un fichier CSS global gère le style visuel (couleurs, présentation…).
+
+## Fonctionnement attendu
+
+**Après démarrage :**
+
+- Page de login accessible sur :
+
+```text
 http://localhost:8080/login
+```
 
-✔️ Identifiants par défaut :
+- Identifiants par défaut :
 
-admin / 1234 → accès espace administrateur + utilisateur
+- admin / 1234 → accès espace administrateur + utilisateur
 
-user / 1111 → accès espace utilisateur
+- user / 1111 → accès espace utilisateur
 
-✔️ Après connexion :
+**Après connexion :**
 
-Redirection automatique vers la page d’accueil contenant des liens vers :
+- Redirection automatique vers la page d’accueil contenant des liens vers :
 
-Espace utilisateur
+- Espace utilisateur
 
-Espace administrateur (si autorisé)
+- Espace administrateur (si autorisé)
 
-✔️ Déconnexion :
+**Déconnexion :**
 
-Redirection vers /login?logout=true
+- Redirection vers /login?logout=true
 
-📦 Résultats attendus
+## Résultats attendus
 
-À la fin du TP, l'application doit :
+**À la fin du TP, l'application doit :**
 
-Gérer correctement les rôles et autorisations.
+- Gérer correctement les rôles et autorisations.
 
-Encoder les mots de passe dans la base.
+- Encoder les mots de passe dans la base.
 
-Permettre la connexion et la déconnexion proprement.
+- Permettre la connexion et la déconnexion proprement.
 
-Proposer une interface propre et stylisée.
+- Proposer une interface propre et stylisée.
 
-Protéger les ressources sensibles.
+- Protéger les ressources sensibles.
 
-Charger les utilisateurs depuis MySQL au lieu d’une mémoire locale.
+- Charger les utilisateurs depuis MySQL au lieu d’une mémoire locale.
 
-📝 Conclusion
+## Conclusion
 
-Ce TP permet de comprendre :
+**Ce TP permet de comprendre :**
 
-La mise en place d’un système d’authentification complet et sécurisé
+- La mise en place d’un système d’authentification complet et sécurisé
 
-La gestion des rôles et des droits d’accès
+- La gestion des rôles et des droits d’accès
 
-L’intégration de Spring Security avec JPA/MySQL
+- L’intégration de Spring Security avec JPA/MySQL
 
-Le fonctionnement du UserDetailsService
+- Le fonctionnement du UserDetailsService
 
-L’importance du hachage BCrypt
+- L’importance du hachage BCrypt
 
-L’organisation d’un projet Spring Boot conforme aux bonnes pratiques
+- L’organisation d’un projet Spring Boot conforme aux bonnes pratiques
 
-C’est un TP fondamental pour toute application nécessitant des comptes utilisateurs et une gestion des permissions.
+- C’est un TP fondamental pour toute application nécessitant des comptes utilisateurs et une gestion des permissions.
