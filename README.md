@@ -173,6 +173,14 @@ http://localhost:8080/login
 
 - Charger les utilisateurs depuis MySQL au lieu d’une mémoire locale.
 
+
+
+
+
+
+<img width="1275" height="691" alt="image" src="https://github.com/user-attachments/assets/c8a1157f-7e91-4bd4-805d-3cd5527ad711" />
+
+
 ## Conclusion
 
 **Ce TP permet de comprendre :**
